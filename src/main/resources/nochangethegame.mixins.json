@@ -16,6 +16,7 @@
         "swordblocking.ApplyThirdPersonAnimationMixin",
         "swordblocking.ApplyThirdPersonPoseMixin",
         "swordblocking.DisableSwapHandsKeyBindingMixin",
+        "swordblocking.HideFakeShieldSlotsSlotMixin",
         "swordblocking.HideFirstPersonShieldMixin",
         "swordblocking.HideOffhandHotbarSlotMixin",
         "swordblocking.HideSwingingWhileBlockingMixin",
