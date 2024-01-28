@@ -1,0 +1,28 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.cecer1.projects.mc.nochangethegame.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "client": [
+        "disableitemcooldowns.DisableEnderpearlCooldownMixin",
+        "disableposes.DisablePoseToFitMixin",
+        "disableposes.DisableSwimmingMixin",
+        "movementinterpolation.DisableSmoothHeadMixin",
+        "movementinterpolation.DisableSmoothSneakMixin",
+        "packethandling.CommonPacketHandlerMixin",
+        "sneakheight.ChangeSneakEyeHeightMixin",
+        "sneakheight.ChangeSneakHitboxMixin",
+        "swordblocking.ApplyFirstPersonAnimationMixin",
+        "swordblocking.ApplyThirdPersonAnimationMixin",
+        "swordblocking.ApplyThirdPersonPoseMixin",
+        "swordblocking.DisableSwapHandsKeyBindingMixin",
+        "swordblocking.HideFirstPersonShieldMixin",
+        "swordblocking.HideOffhandHotbarSlotMixin",
+        "swordblocking.HideSwingingWhileBlockingMixin",
+        "swordblocking.HideThirdPersonShieldMixin",
+        "swordblocking.UpdateFakeShieldMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

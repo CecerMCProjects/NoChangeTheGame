@@ -1,0 +1,47 @@
+{
+    "schemaVersion": 1,
+    "id": "nochangethegame",
+    "version": "${version}",
+    "name": "NoChangeTheGame",
+    "description": "Reverts behaviour changes since Minecraft 1.8.9 that are often disliked by PVP players. Intended for use on Hypixel only.",
+    "authors": [
+        "Cecer",
+        "lqchy_"
+    ],
+    "contact": {
+        "email": "nochangethegame@cecer1.com",
+        "issues": "https://github.com/CecerMCProjects/NoChangeTheGame/issues",
+        "sources": "https://github.com/CecerMCProjects/NoChangeTheGame",
+        "homepage": "https://www.cecer1.com/projects/nochangethegame/"
+    },
+    "license": "MIT",
+    "icon": "assets/nochangethegame/icon.png",
+    "environment": "client",
+    "entrypoints": {
+        "client": [
+            {
+                "value": "com.cecer1.projects.mc.nochangethegame.NoChangeTheGameMod",
+                "adapter": "kotlin"
+            }
+        ],
+        "modmenu": [
+            {
+                "value": "com.cecer1.projects.mc.nochangethegame.config.ModMenuIntegration",
+                "adapter": "kotlin"
+            }
+        ]
+    },
+    "mixins": [
+        "nochangethegame.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.15.0",
+        "minecraft": "1.20.4",
+        "fabric-api": ">=0.91.1",
+        "fabric-language-kotlin": ">=1.10.16+kotlin.1.9.21",
+        "cloth-config": ">=13.0.112"
+    },
+    "suggests": {
+        "modmenu": ">=9.0.0"
+    }
+}
