@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * Hides fake shields from ever rendering
  */
 @Mixin(GuiGraphics.class)
-public abstract class HideFakeShieldSlotsSlotMixin {
+public abstract class HideFakeShieldSlotsMixin {
 
     @Inject(method = "renderItem(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;IIII)V", at = @At(value = "HEAD"))
     private void hideFakeShieldSlots(CallbackInfo ci, @Local(argsOnly = true) LocalRef<ItemStack> itemStack) {
