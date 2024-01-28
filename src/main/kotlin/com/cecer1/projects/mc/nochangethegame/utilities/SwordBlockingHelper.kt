@@ -22,31 +22,34 @@ object SwordBlockingHelper {
         poses.mulPose(ROTATIONS[2])
     }
 
-    private val FAKE_SHIELD_ITEM_STACK = ItemStack(Items.SHIELD).apply {
-        getOrCreateTagElement("nochangethegame").put("isFakeShield", ByteTag.ONE)
-    }
-    fun updateFakeShield() {
-        if (!NoChangeTheGameMod.config.swordBlocking.fakeShield) {
-            return
+    private val FAKE_SHIELD_ITEM_STACK 
+        get() = ItemStack(Items.SHIELD).apply {
+            getOrCreateTagElement("nochangethegame").put("isFakeShield", ByteTag.ONE)
         }
-        
+    fun updateFakeShield() {
         Minecraft.getInstance().player?.inventory?.run {
             val mainHand = getSelected()
             val offHand = offhand[0]
-
+            
+            if (!NoChangeTheGameMod.config.swordBlocking.fakeShield) {
+                if (isFakeShield(offhand[0])) {
+                    offhand[0] = ItemStack.EMPTY
+                }
+                return
+            }
+            
             if (mainHand.item is SwordItem) {
                 if (offHand.isEmpty) {
                     offhand[0] = FAKE_SHIELD_ITEM_STACK
                 }
             } else {
-                if (offHand.item is ShieldItem) {
+                if (isFakeShield(offHand)) {
                     offhand[0] = ItemStack.EMPTY
                 }
             }
         }
     }
     fun isFakeShield(itemStack: ItemStack): Boolean {
-        return itemStack.item == Items.SHIELD && 
-                itemStack.getTagElement("nochangethegame")?.getBoolean("isFakeShield") ?: false
+        return itemStack.item == Items.SHIELD && itemStack.getTagElement("nochangethegame")?.getBoolean("isFakeShield") ?: false
     }
 }
