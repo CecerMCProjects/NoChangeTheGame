@@ -1,4 +1,4 @@
-package com.cecer1.projects.mc.nochangethegame.mixin.swordblocking;
+package com.cecer1.projects.mc.nochangethegame.mixin.swordblocking.shield;
 
 import com.cecer1.projects.mc.nochangethegame.utilities.SwordBlockingHelper;
 import net.minecraft.client.Minecraft;

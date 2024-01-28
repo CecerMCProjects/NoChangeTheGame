@@ -12,16 +12,17 @@
         "packethandling.CommonPacketHandlerMixin",
         "sneakheight.ChangeSneakEyeHeightMixin",
         "sneakheight.ChangeSneakHitboxMixin",
-        "swordblocking.ApplyFirstPersonAnimationMixin",
-        "swordblocking.ApplyThirdPersonAnimationMixin",
-        "swordblocking.ApplyThirdPersonPoseMixin",
-        "swordblocking.DisableSwapHandsKeyBindingMixin",
-        "swordblocking.HideFakeShieldSlotsMixin",
-        "swordblocking.HideFirstPersonShieldMixin",
-        "swordblocking.HideOffhandHotbarSlotMixin",
-        "swordblocking.HideSwingingWhileBlockingMixin",
-        "swordblocking.HideThirdPersonShieldMixin",
-        "swordblocking.UpdateFakeShieldMixin"
+        "swordblocking.animation.ApplyFirstPersonAnimationMixin",
+        "swordblocking.animation.ApplyThirdPersonAnimationMixin",
+        "swordblocking.animation.ApplyThirdPersonPoseMixin",
+        "swordblocking.animation.HideSwingingWhileBlockingMixin",
+        "swordblocking.shield.DisableSwapHandsKeyBindingMixin",
+        "swordblocking.shield.HideFakeShieldItemMixin",
+        "swordblocking.shield.HideFakeShieldTooltipMixin",
+        "swordblocking.shield.HideFirstPersonShieldMixin",
+        "swordblocking.shield.HideOffhandHotbarSlotMixin",
+        "swordblocking.shield.HideThirdPersonShieldMixin",
+        "swordblocking.shield.UpdateFakeShieldMixin"
     ],
     "injectors": {
         "defaultRequire": 1

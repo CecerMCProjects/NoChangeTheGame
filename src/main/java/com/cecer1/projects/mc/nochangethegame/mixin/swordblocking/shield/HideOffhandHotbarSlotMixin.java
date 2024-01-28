@@ -1,4 +1,4 @@
-package com.cecer1.projects.mc.nochangethegame.mixin.swordblocking;
+package com.cecer1.projects.mc.nochangethegame.mixin.swordblocking.shield;
 
 import com.cecer1.projects.mc.nochangethegame.NoChangeTheGameMod;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;

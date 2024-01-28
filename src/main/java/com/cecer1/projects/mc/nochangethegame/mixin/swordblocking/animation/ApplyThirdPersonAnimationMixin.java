@@ -1,4 +1,4 @@
-package com.cecer1.projects.mc.nochangethegame.mixin.swordblocking;
+package com.cecer1.projects.mc.nochangethegame.mixin.swordblocking.animation;
 
 import com.cecer1.projects.mc.nochangethegame.NoChangeTheGameMod;
 import net.minecraft.client.model.AgeableListModel;
