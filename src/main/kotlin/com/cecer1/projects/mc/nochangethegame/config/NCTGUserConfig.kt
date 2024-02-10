@@ -8,8 +8,6 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip
 
 @Config(name = "nochangethegame")
 class NCTGUserConfig : NCTGConfig, ConfigData {
-    @Excluded
-    var configResetVersion = 0
 
     @CollapsibleObject
     override val sneakHeight = SneakHeight()
