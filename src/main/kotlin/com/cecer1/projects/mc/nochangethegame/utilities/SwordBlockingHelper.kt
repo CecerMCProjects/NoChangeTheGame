@@ -1,6 +1,7 @@
 package com.cecer1.projects.mc.nochangethegame.utilities
 
 import com.cecer1.projects.mc.nochangethegame.NoChangeTheGameMod
+import com.cecer1.projects.mc.nochangethegame.NoChangeTheGameMod.MOD_ID
 import com.mojang.blaze3d.vertex.PoseStack
 import net.minecraft.client.Minecraft
 import net.minecraft.nbt.ByteTag
@@ -24,7 +25,7 @@ object SwordBlockingHelper {
 
     private val FAKE_SHIELD_ITEM_STACK 
         get() = ItemStack(Items.SHIELD).apply {
-            getOrCreateTagElement("nochangethegame").put("isFakeShield", ByteTag.ONE)
+            getOrCreateTagElement(MOD_ID).put("isFakeShield", ByteTag.ONE)
         }
     fun updateFakeShield() {
         Minecraft.getInstance().player?.inventory?.run {
@@ -50,6 +51,6 @@ object SwordBlockingHelper {
         }
     }
     fun isFakeShield(itemStack: ItemStack): Boolean {
-        return itemStack.item == Items.SHIELD && itemStack.getTagElement("nochangethegame")?.getBoolean("isFakeShield") ?: false
+        return itemStack.item == Items.SHIELD && itemStack.getTagElement(MOD_ID)?.getBoolean("isFakeShield") ?: false
     }
 }
