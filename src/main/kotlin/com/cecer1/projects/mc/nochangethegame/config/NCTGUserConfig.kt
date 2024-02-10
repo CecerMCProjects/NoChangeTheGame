@@ -1,15 +1,14 @@
 package com.cecer1.projects.mc.nochangethegame.config
 
+import com.cecer1.projects.mc.nochangethegame.NoChangeTheGameMod.MOD_ID
 import me.shedaniel.autoconfig.ConfigData
 import me.shedaniel.autoconfig.annotation.Config
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Excluded
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip
 
-@Config(name = "nochangethegame")
+@Config(name = MOD_ID)
 class NCTGUserConfig : NCTGConfig, ConfigData {
-    @Excluded
-    var configResetVersion = 0
 
     @CollapsibleObject
     override val sneakHeight = SneakHeight()
