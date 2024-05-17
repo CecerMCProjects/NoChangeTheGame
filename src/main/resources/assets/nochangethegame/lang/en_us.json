@@ -58,7 +58,7 @@
   "text.autoconfig.nochangethegame.option.poses.disableCrouchToFit": "Disable auto sneaking",
   "text.autoconfig.nochangethegame.option.poses.disableCrouchToFit.@Tooltip[0]": "Prevents your player from automatically sneaking",
   "text.autoconfig.nochangethegame.option.poses.disableCrouchToFit.@Tooltip[1]": " when there is not enough room to stand.",
-  "text.autoconfig.nochangethegame.option.poses.disableCrawlToFit": "Disable auto sneaking",
+  "text.autoconfig.nochangethegame.option.poses.disableCrawlToFit": "Disable auto crawling/swimming",
   "text.autoconfig.nochangethegame.option.poses.disableCrawlToFit.@Tooltip[0]": "Prevents your player from automatically entering crawling/swimming",
   "text.autoconfig.nochangethegame.option.poses.disableCrawlToFit.@Tooltip[1]": "  when there is not enough room to stand.",
   "text.autoconfig.nochangethegame.option.poses.disableSwimming": "Disable swimming",

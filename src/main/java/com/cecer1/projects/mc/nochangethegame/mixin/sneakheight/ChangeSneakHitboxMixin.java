@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Player.class)
 public abstract class ChangeSneakHitboxMixin {
     
-    @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getDefaultDimensions", at = @At("HEAD"), cancellable = true)
     public void overrideHitboxHeight(Pose pose, CallbackInfoReturnable<EntityDimensions> cir) {
         if (pose == Pose.CROUCHING) {
             EntityDimensions crouchDimensionsOverride = PlayerDimensionsOverrideHelper.INSTANCE.getCrouchDimensionsOverride();
