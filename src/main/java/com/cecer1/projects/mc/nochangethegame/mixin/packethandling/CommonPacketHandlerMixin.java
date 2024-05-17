@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
- * Disables the cooldown on throwing enderpearls 
+ * Reads the server brand directly from the inbound packets.
  */
 @Mixin(ClientCommonPacketListenerImpl.class)
 public abstract class CommonPacketHandlerMixin {

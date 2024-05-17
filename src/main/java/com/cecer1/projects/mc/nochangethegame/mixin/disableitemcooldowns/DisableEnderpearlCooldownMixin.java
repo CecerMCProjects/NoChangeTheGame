@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
- * Disables the cooldown on throwing enderpearls 
+ * Disables the cooldown on throwing items such as enderpearls 
  */
 @Mixin(EnderpearlItem.class)
 public abstract class DisableEnderpearlCooldownMixin {
