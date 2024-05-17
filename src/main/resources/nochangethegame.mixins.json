@@ -10,7 +10,6 @@
         "movementinterpolation.DisableSmoothHeadMixin",
         "movementinterpolation.DisableSmoothSneakMixin",
         "packethandling.CommonPacketHandlerMixin",
-        "sneakheight.ChangeSneakEyeHeightMixin",
         "sneakheight.ChangeSneakHitboxMixin",
         "swordblocking.animation.ApplyFirstPersonAnimationMixin",
         "swordblocking.animation.ApplyThirdPersonAnimationMixin",
