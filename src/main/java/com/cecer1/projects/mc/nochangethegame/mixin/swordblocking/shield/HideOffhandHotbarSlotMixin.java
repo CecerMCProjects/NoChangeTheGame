@@ -23,7 +23,7 @@ public abstract class HideOffhandHotbarSlotMixin {
     @Shadow @Final
     private static ResourceLocation HOTBAR_OFFHAND_RIGHT_SPRITE;
 
-    @WrapWithCondition(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"))
+    @WrapWithCondition(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"))
     private boolean hideBackground(GuiGraphics instance, ResourceLocation resourceLocation, int x, int y, int width, int height) {
         if (!NoChangeTheGameMod.INSTANCE.getConfig().getSwordBlocking().getHideOffhandSlot()) {
             // Don't hide
@@ -33,7 +33,7 @@ public abstract class HideOffhandHotbarSlotMixin {
         return resourceLocation != HOTBAR_OFFHAND_LEFT_SPRITE && resourceLocation != HOTBAR_OFFHAND_RIGHT_SPRITE;
     }
 
-    @WrapWithCondition(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderSlot(Lnet/minecraft/client/gui/GuiGraphics;IIFLnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;I)V"))
+    @WrapWithCondition(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderSlot(Lnet/minecraft/client/gui/GuiGraphics;IIFLnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;I)V"))
     private boolean hideForeground(Gui instance, GuiGraphics context, int x, int y, float tickDelta, Player player, ItemStack itemStack, int index) {
         if (!NoChangeTheGameMod.INSTANCE.getConfig().getSwordBlocking().getHideOffhandSlot()) {
             // Don't hide
