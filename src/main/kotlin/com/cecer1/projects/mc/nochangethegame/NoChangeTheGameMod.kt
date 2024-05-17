@@ -27,13 +27,9 @@ import net.minecraft.nbt.LongArrayTag
 import net.minecraft.nbt.LongTag
 import net.minecraft.nbt.ShortTag
 import net.minecraft.nbt.StringTag
-import net.minecraft.network.FriendlyByteBuf
-import net.minecraft.resources.ResourceLocation
 
 object NoChangeTheGameMod : ClientModInitializer {
     const val MOD_ID = "nochangethegame"
-    private val ANNOUNCE_PACKET_ID = ResourceLocation(MOD_ID, "announce")
-    private val CONFIG_OVERRIDE_PACKET_ID = ResourceLocation(MOD_ID, "config_override")
     
     private lateinit var userConfig: NCTGUserConfig
     private lateinit var serverOverrideConfig: NCTGServerOverrideConfig
