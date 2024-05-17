@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -36,10 +37,15 @@ public abstract class HideOffhandHotbarSlotMixin {
     @WrapWithCondition(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderSlot(Lnet/minecraft/client/gui/GuiGraphics;IIFLnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;I)V"))
     private boolean hideForeground(Gui instance, GuiGraphics context, int x, int y, float tickDelta, Player player, ItemStack itemStack, int index) {
         if (!NoChangeTheGameMod.INSTANCE.getConfig().getSwordBlocking().getHideOffhandSlot()) {
-            // Don't hide
+            // Don't hide (disabled by config)
+            return true;
+        }
+        if (index != 10) {
+            // Don't hide (not offhand slot)
             return true;
         }
 
-        return index != 10;
+        // Only hide shields
+        return !itemStack.is(Items.SHIELD);
     }
 }
