@@ -1,29 +1,30 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "com.cecer1.projects.mc.nochangethegame.mixin",
-    "compatibilityLevel": "JAVA_17",
-    "client": [
-        "disableitemcooldowns.DisableEnderpearlCooldownMixin",
-        "disableposes.DisablePoseToFitMixin",
-        "disableposes.DisableSwimmingMixin",
-        "movementinterpolation.DisableSmoothHeadMixin",
-        "movementinterpolation.DisableSmoothSneakMixin",
-        "packethandling.CommonPacketHandlerMixin",
-        "sneakheight.ChangeSneakHitboxMixin",
-        "swordblocking.animation.ApplyFirstPersonAnimationMixin",
-        "swordblocking.animation.ApplyThirdPersonAnimationMixin",
-        "swordblocking.animation.ApplyThirdPersonPoseMixin",
-        "swordblocking.animation.HideSwingingWhileBlockingMixin",
-        "swordblocking.shield.DisableSwapHandsKeyBindingMixin",
-        "swordblocking.shield.HideFakeShieldItemMixin",
-        "swordblocking.shield.HideFakeShieldTooltipMixin",
-        "swordblocking.shield.HideFirstPersonShieldMixin",
-        "swordblocking.shield.HideOffhandHotbarSlotMixin",
-        "swordblocking.shield.HideThirdPersonShieldMixin",
-        "swordblocking.shield.UpdateFakeShieldMixin"
-    ],
-    "injectors": {
-        "defaultRequire": 1
-    }
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.cecer1.projects.mc.nochangethegame.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "disableitemcooldowns.DisableEnderpearlCooldownMixin",
+    "disableposes.DisablePoseToFitMixin",
+    "disableposes.DisableSwimmingMixin",
+    "movementinterpolation.DisableSmoothHeadMixin",
+    "movementinterpolation.DisableSmoothSneakMixin",
+    "packethandling.CommonPacketHandlerMixin",
+    "sneakheight.ChangeSneakHitboxMixin",
+    "swordblocking.animation.ApplyFirstPersonAnimationMixin",
+    "swordblocking.animation.ApplyThirdPersonAnimationMixin",
+    "swordblocking.animation.ApplyThirdPersonPoseMixin",
+    "swordblocking.animation.HideSwingingWhileBlockingMixin",
+    "swordblocking.shield.DisableSwapHandsKeyBindingMixin",
+    "swordblocking.shield.HideFakeShieldItemMixin",
+    "swordblocking.shield.HideFakeShieldTooltipMixin",
+    "swordblocking.shield.HideFirstPersonShieldMixin",
+    "swordblocking.shield.HideOffhandHotbarSlotMixin",
+    "swordblocking.shield.HideThirdPersonShieldMixin",
+    "swordblocking.shield.UpdateFakeShieldMixin",
+    "worldloadscreenbackgrounds.DisablePortalScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

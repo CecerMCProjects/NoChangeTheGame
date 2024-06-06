@@ -6,6 +6,7 @@ interface NCTGConfig {
     val swordBlocking: SwordBlocking
     val itemCooldowns: ItemCooldowns
     val poses: Poses
+    val worldLoadingBackgrounds: WorldLoadingBackgrounds
 
     interface SneakHeight {
         val eyeHeight: Float
@@ -33,5 +34,11 @@ interface NCTGConfig {
         val disableCrouchToFit: Boolean
         val disableCrawlToFit: Boolean
         val disableSwimming: Boolean
+    }
+
+    interface WorldLoadingBackgrounds {
+        val disableNether: Boolean
+        val disableEnd: Boolean
+        val disableOther: Boolean
     }
 }

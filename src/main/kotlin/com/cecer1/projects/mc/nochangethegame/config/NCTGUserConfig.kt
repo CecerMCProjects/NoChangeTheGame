@@ -26,6 +26,9 @@ class NCTGUserConfig : NCTGConfig, ConfigData {
     override val poses = Poses()
 
     @CollapsibleObject
+    override val worldLoadingBackgrounds = WorldLoadingBackgrounds()
+
+    @CollapsibleObject
     val dangerZone = DangerZone()
 
     class SneakHeight : NCTGConfig.SneakHeight {
@@ -76,6 +79,17 @@ class NCTGUserConfig : NCTGConfig, ConfigData {
     class ItemCooldowns : NCTGConfig.ItemCooldowns {
         @Tooltip
         override var disableEnderpearlCooldown = true
+    }
+
+    class WorldLoadingBackgrounds : NCTGConfig.WorldLoadingBackgrounds {
+        @Tooltip(count = 4)
+        override val disableNether = false
+
+        @Tooltip(count = 4)
+        override val disableEnd = false
+
+        @Tooltip(count = 4)
+        override val disableOther = false
     }
 
     class DangerZone {
