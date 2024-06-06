@@ -6,6 +6,7 @@ class NCTGVanillaConfig : NCTGConfig {
     override val swordBlocking: NCTGConfig.SwordBlocking = SwordBlocking()
     override val itemCooldowns: NCTGConfig.ItemCooldowns = ItemCooldowns()
     override val poses: NCTGConfig.Poses = Poses()
+    override val worldLoadingBackgrounds: NCTGConfig.WorldLoadingBackgrounds = WorldLoadingBackgrounds()
 
 
     private class SneakHeight : NCTGConfig.SneakHeight {
@@ -30,5 +31,10 @@ class NCTGVanillaConfig : NCTGConfig {
         override val disableCrouchToFit = false
         override val disableCrawlToFit = false
         override val disableSwimming = false
+    }
+    private class WorldLoadingBackgrounds : NCTGConfig.WorldLoadingBackgrounds {
+        override val disableNether = false
+        override val disableEnd = false
+        override val disableOther = false
     }
 }

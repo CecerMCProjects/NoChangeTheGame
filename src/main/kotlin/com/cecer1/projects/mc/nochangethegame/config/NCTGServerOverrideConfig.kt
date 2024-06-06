@@ -10,6 +10,7 @@ class NCTGServerOverrideConfig(private val userConfig: NCTGConfig) : NCTGConfig,
     override val swordBlocking: NCTGConfig.SwordBlocking by ConfigCategory(::SwordBlocking)
     override val itemCooldowns: NCTGConfig.ItemCooldowns by ConfigCategory(::ItemCooldowns)
     override val poses: NCTGConfig.Poses by ConfigCategory(::Poses)
+    override val worldLoadingBackgrounds: NCTGConfig.WorldLoadingBackgrounds by ConfigCategory(::WorldLoadingBackgrounds)
     
     
     val overrides = mutableMapOf<String, Any>()
@@ -58,8 +59,15 @@ class NCTGServerOverrideConfig(private val userConfig: NCTGConfig) : NCTGConfig,
         
         override val disableEnderpearlCooldown by ConfigField(fallback::disableEnderpearlCooldown)
     }
-    
-    
+
+    private inner class WorldLoadingBackgrounds(key: String) : Category(key), NCTGConfig.WorldLoadingBackgrounds {
+        private val fallback = userConfig.worldLoadingBackgrounds
+
+        override val disableNether by ConfigField(fallback::disableNether)
+        override val disableEnd by ConfigField(fallback::disableEnd)
+        override val disableOther by ConfigField(fallback::disableOther)
+    }
+
     private open inner class Category(val key: String)
     private inner class ConfigCategory<T : Category>(val constructor: (String) -> T) {
         operator fun getValue(thisRef: Any, property: KProperty<*>): T = constructor.invoke(property.name) 
