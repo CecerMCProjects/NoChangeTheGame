@@ -126,6 +126,7 @@ object NoChangeTheGameMod : ClientModInitializer {
                         .append(Component.translatable("text.serveroverride.option.${entry.key}").withStyle(ChatFormatting.GRAY))
                         .append(Component.literal(": ").withStyle(ChatFormatting.WHITE))
                         .append(Component.literal(entry.value.toString()).withStyle(ChatFormatting.YELLOW))
+                    serverOverrideConfig[entry.key] = entry.value
                 }
             }
             Minecraft.getInstance().gui.chat.addMessage(message)
