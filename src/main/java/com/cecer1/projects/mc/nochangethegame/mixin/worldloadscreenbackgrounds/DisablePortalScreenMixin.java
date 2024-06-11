@@ -18,8 +18,7 @@ import static net.minecraft.client.gui.screens.ReceivingLevelScreen.Reason.*;
 @Mixin(ReceivingLevelScreen.class)
 public abstract class DisablePortalScreenMixin extends Screen {
 
-    @Shadow @Final
-    private ReceivingLevelScreen.Reason reason;
+    @Shadow @Final private ReceivingLevelScreen.Reason reason;
 
     protected DisablePortalScreenMixin(Component component) { super(component); }
 

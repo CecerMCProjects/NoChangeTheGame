@@ -19,10 +19,8 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(Gui.class)
 public abstract class HideOffhandHotbarSlotMixin {
     
-    @Shadow @Final
-    private static ResourceLocation HOTBAR_OFFHAND_LEFT_SPRITE;
-    @Shadow @Final
-    private static ResourceLocation HOTBAR_OFFHAND_RIGHT_SPRITE;
+    @Shadow @Final private static ResourceLocation HOTBAR_OFFHAND_LEFT_SPRITE;
+    @Shadow @Final private static ResourceLocation HOTBAR_OFFHAND_RIGHT_SPRITE;
 
     @WrapWithCondition(method = "renderItemHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"))
     private boolean hideBackground(GuiGraphics instance, ResourceLocation resourceLocation, int x, int y, int width, int height) {
