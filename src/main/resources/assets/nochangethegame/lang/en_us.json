@@ -108,11 +108,6 @@
   "text.autoconfig.nochangethegame.option.worldLoadingBackgrounds.disableEnd.@Tooltip[1]": " ",
   "text.autoconfig.nochangethegame.option.worldLoadingBackgrounds.disableEnd.@Tooltip[2]": "§7For the legacy dirt background, use a resource pack, such as",
   "text.autoconfig.nochangethegame.option.worldLoadingBackgrounds.disableEnd.@Tooltip[3]": " §7the built-in Programmer Art, alongside this setting.",
-  "text.autoconfig.nochangethegame.option.worldLoadingBackgrounds.disableOther": "Disable main menu panorama",
-  "text.autoconfig.nochangethegame.option.worldLoadingBackgrounds.disableOther.@Tooltip[0]": "Disables the main menu panorama background when loading worlds.",
-  "text.autoconfig.nochangethegame.option.worldLoadingBackgrounds.disableOther.@Tooltip[1]": " ",
-  "text.autoconfig.nochangethegame.option.worldLoadingBackgrounds.disableOther.@Tooltip[2]": "§7For the legacy dirt background, use a resource pack, such as",
-  "text.autoconfig.nochangethegame.option.worldLoadingBackgrounds.disableOther.@Tooltip[3]": " §7the built-in Programmer Art, alongside this setting.",
 
   "text.autoconfig.nochangethegame.option.dangerZone": "§e⚠ §cDanger Zone §e⚠",
   "text.autoconfig.nochangethegame.option.dangerZone.disableOnNonHypixelServers": "§e⚠ §6Disable on non-hypixel servers §c(Read the tooltip)",

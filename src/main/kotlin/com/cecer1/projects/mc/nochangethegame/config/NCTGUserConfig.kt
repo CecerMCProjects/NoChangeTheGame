@@ -99,6 +99,7 @@ class NCTGUserConfig : NCTGConfig, ConfigData {
         override val disableEnd = false
 
         @Tooltip(count = 4)
+        @Excluded
         override val disableOther = false
     }
 
