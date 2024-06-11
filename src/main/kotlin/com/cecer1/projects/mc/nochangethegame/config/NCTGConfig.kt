@@ -5,6 +5,7 @@ interface NCTGConfig {
     val movementInterpolation: MovementInterpolation
     val swordBlocking: SwordBlocking
     val itemCooldowns: ItemCooldowns
+    val armSwings: ArmSwings
     val poses: Poses
     val worldLoadingBackgrounds: WorldLoadingBackgrounds
 
@@ -30,6 +31,11 @@ interface NCTGConfig {
         val disableEnderpearlCooldown: Boolean
     }
 
+    interface ArmSwings {
+        val disableOnUse: Boolean
+        val disableOnDrop: Boolean
+    }
+    
     interface Poses {
         val disableCrouchToFit: Boolean
         val disableCrawlToFit: Boolean

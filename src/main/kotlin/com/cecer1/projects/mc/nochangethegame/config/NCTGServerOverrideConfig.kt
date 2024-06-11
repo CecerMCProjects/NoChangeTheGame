@@ -10,6 +10,7 @@ class NCTGServerOverrideConfig(private val userConfig: NCTGConfig) : NCTGConfig,
     override val swordBlocking: NCTGConfig.SwordBlocking by ConfigCategory(::SwordBlocking)
     override val itemCooldowns: NCTGConfig.ItemCooldowns by ConfigCategory(::ItemCooldowns)
     override val poses: NCTGConfig.Poses by ConfigCategory(::Poses)
+    override val armSwings: NCTGConfig.ArmSwings by ConfigCategory(::ArmSwings)
     override val worldLoadingBackgrounds: NCTGConfig.WorldLoadingBackgrounds by ConfigCategory(::WorldLoadingBackgrounds)
     
     val overrides = mutableMapOf<String, Any>()
@@ -44,18 +45,24 @@ class NCTGServerOverrideConfig(private val userConfig: NCTGConfig) : NCTGConfig,
         override val fakeShield by ConfigField(fallback::fakeShield)
     }
 
+    private inner class ItemCooldowns(key: String) : Category(key), NCTGConfig.ItemCooldowns {
+        private val fallback = userConfig.itemCooldowns
+
+        override val disableEnderpearlCooldown by ConfigField(fallback::disableEnderpearlCooldown)
+    }
+
+    private inner class ArmSwings(key: String) : Category(key), NCTGConfig.ArmSwings {
+        private val fallback = userConfig.armSwings
+        override val disableOnUse by ConfigField(fallback::disableOnUse)
+        override val disableOnDrop by ConfigField(fallback::disableOnDrop)
+    }
+
     private inner class Poses(key: String) : Category(key), NCTGConfig.Poses {
+
         private val fallback = userConfig.poses
-        
         override val disableCrouchToFit by ConfigField(fallback::disableCrouchToFit)
         override val disableCrawlToFit by ConfigField(fallback::disableCrawlToFit)
         override val disableSwimming by ConfigField(fallback::disableSwimming)
-    }
-
-    private inner class ItemCooldowns(key: String) : Category(key), NCTGConfig.ItemCooldowns {
-        private val fallback = userConfig.itemCooldowns
-        
-        override val disableEnderpearlCooldown by ConfigField(fallback::disableEnderpearlCooldown)
     }
 
     private inner class WorldLoadingBackgrounds(key: String) : Category(key), NCTGConfig.WorldLoadingBackgrounds {

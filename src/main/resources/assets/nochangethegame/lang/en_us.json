@@ -15,6 +15,8 @@
   "text.serveroverride.option.swordBlocking.preventCombinedAnimation": "[Sword Blocking] Fix Combined Animation",
   "text.serveroverride.option.swordBlocking.fakeShield": "[Sword Blocking] Remove blocking latency",
   "text.serveroverride.option.itemCooldowns.disableEnderpearlCooldown": "[Item Cooldowns] Disable enderpearl cooldown",
+  "text.serveroverride.option.armSwings.disableOnUse": "[Arm Swing Animations] Disable arm swing animation on item use",
+  "text.serveroverride.option.armSwings.disableOnDrop": "[Arm Swing Animations] Disable arm swing animation on item drop",
   "text.serveroverride.option.poses.disableCrouchToFit": "[Poses] Disable auto sneaking",
   "text.serveroverride.option.poses.disableCrawlToFit": "[Poses] Disable auto crawling/swimming",
   "text.serveroverride.option.poses.disableSwimming": "[Poses] Disable swimming",
@@ -78,6 +80,12 @@
   "text.autoconfig.nochangethegame.option.itemCooldowns": "Item Cooldowns",
   "text.autoconfig.nochangethegame.option.itemCooldowns.disableEnderpearlCooldown": "Disable enderpearl cooldown",
   "text.autoconfig.nochangethegame.option.itemCooldowns.disableEnderpearlCooldown.@Tooltip": "Allows enderpearls to be used rapidly without the forced cooldown.",
+  
+  "text.autoconfig.nochangethegame.option.armSwings": "Arm Swing Animations",
+  "text.autoconfig.nochangethegame.option.armSwings.disableOnUse": "Disable on item use",
+  "text.autoconfig.nochangethegame.option.armSwings.disableOnUse.@Tooltip": "Disables the arm swinging animation when using certain items such as enderpearls.",
+  "text.autoconfig.nochangethegame.option.armSwings.disableOnDrop": "Disable on item drop",
+  "text.autoconfig.nochangethegame.option.armSwings.disableOnDrop.@Tooltip": "Disables the arm swinging animation when dropping items using the drop item key.",
   
   "text.autoconfig.nochangethegame.option.poses": "Poses",
   "text.autoconfig.nochangethegame.option.poses.disableCrouchToFit": "Disable auto sneaking",

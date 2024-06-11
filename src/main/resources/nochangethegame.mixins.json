@@ -4,6 +4,8 @@
   "package": "com.cecer1.projects.mc.nochangethegame.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "disablehandswings.DisableItemSwingOnDropMixin",
+    "disablehandswings.DisableItemSwingOnUseLocalMixin",
     "disableitemcooldowns.DisableEnderpearlCooldownMixin",
     "disableposes.DisablePoseToFitMixin",
     "disableposes.DisableSwimmingMixin",

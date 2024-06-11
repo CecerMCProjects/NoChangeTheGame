@@ -5,6 +5,7 @@ class NCTGVanillaConfig : NCTGConfig {
     override val movementInterpolation: NCTGConfig.MovementInterpolation = MovementInterpolation()
     override val swordBlocking: NCTGConfig.SwordBlocking = SwordBlocking()
     override val itemCooldowns: NCTGConfig.ItemCooldowns = ItemCooldowns()
+    override val armSwings: NCTGConfig.ArmSwings = ArmSwings()
     override val poses: NCTGConfig.Poses = Poses()
     override val worldLoadingBackgrounds: NCTGConfig.WorldLoadingBackgrounds = WorldLoadingBackgrounds()
 
@@ -26,6 +27,10 @@ class NCTGVanillaConfig : NCTGConfig {
     }
     private class ItemCooldowns : NCTGConfig.ItemCooldowns {
         override val disableEnderpearlCooldown = false
+    }
+    private class ArmSwings : NCTGConfig.ArmSwings {
+        override val disableOnUse = false
+        override val disableOnDrop = false
     }
     private class Poses : NCTGConfig.Poses {
         override val disableCrouchToFit = false
