@@ -5,6 +5,7 @@ import com.cecer1.projects.mc.nochangethegame.config.NCTGServerOverrideConfig
 import com.cecer1.projects.mc.nochangethegame.config.NCTGUserConfig
 import com.cecer1.projects.mc.nochangethegame.config.NCTGVanillaConfig
 import com.cecer1.projects.mc.nochangethegame.protocol.ClientboundConfigOverridePacket
+import com.cecer1.projects.mc.nochangethegame.protocol.ClientboundKillSwitchPacket
 import com.cecer1.projects.mc.nochangethegame.protocol.ServerboundAnnouncePacket
 import com.cecer1.projects.mc.nochangethegame.utilities.ServerBrand
 import me.shedaniel.autoconfig.AutoConfig
@@ -36,10 +37,15 @@ object NoChangeTheGameMod : ClientModInitializer {
     private lateinit var userConfig: NCTGUserConfig
     private lateinit var serverOverrideConfig: NCTGServerOverrideConfig
     private val vanillaConfig = NCTGVanillaConfig()
+    private var killSwitchActive = false
     val serverBrand = ServerBrand()
     
     val config : NCTGConfig
         get() {
+            if (killSwitchActive) {
+                return vanillaConfig
+            }
+
             return if (serverBrand.isHypixel || !userConfig.dangerZone.disableOnNonHypixelServers) {
                 if (!serverBrand.isHypixelSMP || !userConfig.dangerZone.disableOnHypixelSMP) {
                     serverOverrideConfig
@@ -63,8 +69,9 @@ object NoChangeTheGameMod : ClientModInitializer {
         
         PayloadTypeRegistry.playC2S().register(ServerboundAnnouncePacket.TYPE, ServerboundAnnouncePacket.CODEC)
         PayloadTypeRegistry.playS2C().register(ClientboundConfigOverridePacket.TYPE, ClientboundConfigOverridePacket.CODEC)
-        
-        
+        PayloadTypeRegistry.playS2C().register(ClientboundKillSwitchPacket.TYPE, ClientboundKillSwitchPacket.CODEC)
+
+
         ClientPlayConnectionEvents.JOIN.register { _, out: PacketSender, _ ->
             val version = FabricLoader.getInstance().getModContainer(MOD_ID).get().metadata.version.friendlyString
             out.sendPacket(ServerboundAnnouncePacket(version))
@@ -91,9 +98,14 @@ object NoChangeTheGameMod : ClientModInitializer {
             }
             // TODO: Indicate to the user that the server has overridden some settings
         }
+
+        ClientPlayNetworking.registerGlobalReceiver(ClientboundKillSwitchPacket.TYPE) { packet, _ ->
+            killSwitchActive = packet.active
+        }
     }
 
     private fun resetServerState() {
+        killSwitchActive = false
         serverBrand.setBrand(null)
         serverOverrideConfig.clearAllOverrides()
     }
