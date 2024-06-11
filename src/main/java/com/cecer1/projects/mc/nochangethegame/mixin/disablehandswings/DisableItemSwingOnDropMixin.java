@@ -1,5 +1,6 @@
 package com.cecer1.projects.mc.nochangethegame.mixin.disablehandswings;
 
+import com.cecer1.projects.mc.nochangethegame.NoChangeTheGameMod;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -23,10 +24,12 @@ public abstract class DisableItemSwingOnDropMixin {
 
     @Shadow @Final public Options options;
 
+    @Shadow public abstract boolean isDemo();
+
     @WrapOperation(method = "handleKeybinds", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/KeyMapping;consumeClick()Z"))
     private boolean detectItemDrop(KeyMapping instance, Operation<Boolean> original, @Share("isDropping") LocalBooleanRef isDropping) {
         boolean keyPressed = original.call(instance);
-        if (instance != this.options.keyDrop) {
+        if (instance == this.options.keyDrop) {
             isDropping.set(keyPressed);
         }
         return keyPressed;
@@ -34,8 +37,19 @@ public abstract class DisableItemSwingOnDropMixin {
 
 
     @WrapWithCondition(method = "handleKeybinds", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;swing(Lnet/minecraft/world/InteractionHand;)V"))
-    private boolean detectItemDrop(LocalPlayer instance, InteractionHand interactionHand, @Share("isDropping") LocalBooleanRef isDropping) {
-        // The isDropping value will always be true in vanilla (at least in 1.20.6) but this adds some sanity checking and potential future proofing.
-        return !isDropping.get();
+    private boolean preventArmSwing(LocalPlayer instance, InteractionHand interactionHand, @Share("isDropping") LocalBooleanRef isDropping) {
+        // The value of isDropping will always be true in vanilla (at least in 1.20.6) but this adds some sanity checking and potential future proofing.
+        if (!isDropping.get()) {
+            return true;
+        }
+        
+        isDropping.set(false);
+        if (!NoChangeTheGameMod.INSTANCE.getConfig().getArmSwings().getDisableOnDrop()) {
+            return true;
+        }
+        
+        // We want to create the item bobbing effect from old versions.
+        Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().itemUsed(interactionHand);
+        return false;
     }
 }
