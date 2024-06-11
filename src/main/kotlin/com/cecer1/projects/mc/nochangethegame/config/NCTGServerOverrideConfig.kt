@@ -12,7 +12,6 @@ class NCTGServerOverrideConfig(private val userConfig: NCTGConfig) : NCTGConfig,
     override val poses: NCTGConfig.Poses by ConfigCategory(::Poses)
     override val worldLoadingBackgrounds: NCTGConfig.WorldLoadingBackgrounds by ConfigCategory(::WorldLoadingBackgrounds)
     
-    
     val overrides = mutableMapOf<String, Any>()
     operator fun set(key: String, value: Any) {
         overrides[key] = value
@@ -20,7 +19,6 @@ class NCTGServerOverrideConfig(private val userConfig: NCTGConfig) : NCTGConfig,
     fun clearAllOverrides() {
         overrides.clear()
     }
-    
     
     private inner class SneakHeight(key: String) : Category(key), NCTGConfig.SneakHeight {
         private val fallback = userConfig.sneakHeight

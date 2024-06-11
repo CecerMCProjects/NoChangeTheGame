@@ -1,7 +1,6 @@
 package com.cecer1.projects.mc.nochangethegame.protocol
 
 import com.cecer1.projects.mc.nochangethegame.NoChangeTheGameMod
-import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload

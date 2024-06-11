@@ -12,13 +12,15 @@ import me.shedaniel.autoconfig.AutoConfig
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationConnectionEvents
-import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.networking.v1.PacketSender
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import net.fabricmc.loader.api.FabricLoader
+import net.minecraft.ChatFormatting
+import net.minecraft.client.Minecraft
+import net.minecraft.locale.Language
 import net.minecraft.nbt.ByteArrayTag
 import net.minecraft.nbt.ByteTag
 import net.minecraft.nbt.CompoundTag
@@ -30,6 +32,8 @@ import net.minecraft.nbt.LongArrayTag
 import net.minecraft.nbt.LongTag
 import net.minecraft.nbt.ShortTag
 import net.minecraft.nbt.StringTag
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.MutableComponent
 
 object NoChangeTheGameMod : ClientModInitializer {
     const val MOD_ID = "nochangethegame"
@@ -80,6 +84,8 @@ object NoChangeTheGameMod : ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(ClientboundConfigOverridePacket.TYPE) { packet, _ ->
             val nbt: CompoundTag = packet.stuff ?: return@registerGlobalReceiver // Ignore invalid payloads
 
+            var changed = false
+            val newValues = mutableMapOf<String, Any>()
             for (key in nbt.allKeys) {
                 val value = when (val override = nbt.get(key)) {
                     is ByteTag -> override.asByte
@@ -94,13 +100,53 @@ object NoChangeTheGameMod : ClientModInitializer {
                     is LongArrayTag -> override.asLongArray
                     else -> continue // Ignore unsupported tag types
                 }
-                serverOverrideConfig.overrides[key] = value
+                newValues[key] = value
+                if (serverOverrideConfig.overrides[key] != value) {
+                    changed = true
+                }
             }
-            // TODO: Indicate to the user that the server has overridden some settings
+            
+            if (!changed && serverOverrideConfig.overrides.size == newValues.size) {
+                // Nothing has changed
+                return@registerGlobalReceiver
+            }
+
+            // Server override has been cleared by the server
+            serverOverrideConfig.clearAllOverrides()
+            val message = Component.empty()
+                .append(Component.translatable("text.serveroverride.chat.title"))
+                .append("\n")
+            
+            if (newValues.isEmpty()) {
+                message.append(Component.translatable("text.serveroverride.chat.cleared"))
+            } else {
+                message.append(Component.translatable("text.serveroverride.chat.applied"))
+                for (entry in newValues) {
+                    message.append("\n  ")
+                        .append(Component.translatable("text.serveroverride.option.${entry.key}").withStyle(ChatFormatting.GRAY))
+                        .append(Component.literal(": ").withStyle(ChatFormatting.WHITE))
+                        .append(Component.literal(entry.value.toString()).withStyle(ChatFormatting.YELLOW))
+                }
+            }
+            Minecraft.getInstance().gui.chat.addMessage(message)
         }
 
         ClientPlayNetworking.registerGlobalReceiver(ClientboundKillSwitchPacket.TYPE) { packet, _ ->
+            if (killSwitchActive == packet.active) {
+                return@registerGlobalReceiver
+            }
             killSwitchActive = packet.active
+            
+            val message = Component.empty()
+                .append(Component.translatable("text.serveroverride.chat.title"))
+                .append("\n")
+
+            if (packet.active) {
+                message.append(Component.translatable("text.serveroverride.chat.killswitch.activated"))
+            } else {
+                message.append(Component.translatable("text.serveroverride.chat.killswitch.deactivated"))
+            }
+            Minecraft.getInstance().gui.chat.addMessage(message)
         }
     }
 
