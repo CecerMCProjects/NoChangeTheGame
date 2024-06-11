@@ -10,6 +10,8 @@ import com.cecer1.projects.mc.nochangethegame.utilities.ServerBrand
 import me.shedaniel.autoconfig.AutoConfig
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.fabricmc.api.ClientModInitializer
+import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationConnectionEvents
+import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
@@ -34,7 +36,6 @@ object NoChangeTheGameMod : ClientModInitializer {
     private lateinit var userConfig: NCTGUserConfig
     private lateinit var serverOverrideConfig: NCTGServerOverrideConfig
     private val vanillaConfig = NCTGVanillaConfig()
-
     val serverBrand = ServerBrand()
     
     val config : NCTGConfig
@@ -57,6 +58,7 @@ object NoChangeTheGameMod : ClientModInitializer {
         configHolder.save()
         
         ClientLoginConnectionEvents.DISCONNECT.register { _, _ -> resetServerState() }
+        ClientConfigurationConnectionEvents.DISCONNECT.register { _, _ -> resetServerState() }
         ClientPlayConnectionEvents.DISCONNECT.register { _, _ -> resetServerState() }
         
         PayloadTypeRegistry.playC2S().register(ServerboundAnnouncePacket.TYPE, ServerboundAnnouncePacket.CODEC)
