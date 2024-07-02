@@ -12,7 +12,7 @@ class ClientboundKillSwitchPacket(val active: Boolean) : CustomPacketPayload {
     override fun type() = TYPE
     
     companion object {
-        private val PACKET_ID = ResourceLocation(NoChangeTheGameMod.MOD_ID, "kill_switch") 
+        private val PACKET_ID = ResourceLocation.fromNamespaceAndPath(NoChangeTheGameMod.MOD_ID, "kill_switch")
         val TYPE: Type<ClientboundKillSwitchPacket> = Type(PACKET_ID)
 
         val CODEC: StreamCodec<FriendlyByteBuf, ClientboundKillSwitchPacket> = object : StreamCodec<FriendlyByteBuf, ClientboundKillSwitchPacket> {
