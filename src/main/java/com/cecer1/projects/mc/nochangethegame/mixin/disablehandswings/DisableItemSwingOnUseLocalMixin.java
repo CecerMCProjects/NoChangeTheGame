@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(Minecraft.class)
 public abstract class DisableItemSwingOnUseLocalMixin {
 
-    @ModifyExpressionValue(method = "startUseItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/InteractionResult;shouldSwing()Z"))
+    @ModifyExpressionValue(method = "startUseItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/InteractionResult;shouldSwing()Z", ordinal = 2))
     private boolean shouldSwing(boolean original) {
         return original && !NoChangeTheGameMod.INSTANCE.getConfig().getArmSwings().getDisableOnUse();
     }
