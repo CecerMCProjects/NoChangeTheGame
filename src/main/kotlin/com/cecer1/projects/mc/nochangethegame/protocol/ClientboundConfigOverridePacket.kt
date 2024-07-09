@@ -13,7 +13,7 @@ class ClientboundConfigOverridePacket(val stuff: CompoundTag?) : CustomPacketPay
     override fun type() = TYPE
     
     companion object {
-        private val PACKET_ID = ResourceLocation(NoChangeTheGameMod.MOD_ID, "config_override") 
+        private val PACKET_ID = ResourceLocation.fromNamespaceAndPath(NoChangeTheGameMod.MOD_ID, "config_override") 
         val TYPE: Type<ClientboundConfigOverridePacket> = Type(PACKET_ID)
 
         val CODEC: StreamCodec<FriendlyByteBuf, ClientboundConfigOverridePacket> = object : StreamCodec<FriendlyByteBuf, ClientboundConfigOverridePacket> {

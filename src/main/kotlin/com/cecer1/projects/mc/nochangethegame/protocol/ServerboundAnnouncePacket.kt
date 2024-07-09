@@ -12,7 +12,7 @@ class ServerboundAnnouncePacket(val version: String) : CustomPacketPayload {
     override fun type() = TYPE
     
     companion object {
-        private val PACKET_ID = ResourceLocation(NoChangeTheGameMod.MOD_ID, "announce") 
+        private val PACKET_ID = ResourceLocation.fromNamespaceAndPath(NoChangeTheGameMod.MOD_ID, "announce") 
         val TYPE: Type<ServerboundAnnouncePacket> = Type(PACKET_ID)
 
         val CODEC: StreamCodec<FriendlyByteBuf, ServerboundAnnouncePacket> = object : StreamCodec<FriendlyByteBuf, ServerboundAnnouncePacket> {
