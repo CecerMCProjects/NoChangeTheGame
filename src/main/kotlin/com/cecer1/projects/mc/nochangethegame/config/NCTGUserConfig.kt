@@ -23,9 +23,6 @@ class NCTGUserConfig : NCTGConfig, ConfigData {
     override val itemCooldowns = ItemCooldowns()
 
     @CollapsibleObject
-    override val armSwings = ArmSwings()
-
-    @CollapsibleObject
     override val poses = Poses()
 
     @CollapsibleObject
@@ -68,27 +65,20 @@ class NCTGUserConfig : NCTGConfig, ConfigData {
         override var fakeShield = true
     }
 
-    class ItemCooldowns : NCTGConfig.ItemCooldowns {
-        @Tooltip
-        override var disableEnderpearlCooldown = true
-    }
-
-    class ArmSwings : NCTGConfig.ArmSwings {
-        @Tooltip
-        override val disableOnUse = true
-        @Tooltip
-        override val disableOnDrop = true
-    }
-
     class Poses : NCTGConfig.Poses {
-
         @Tooltip(count = 2)
         override var disableCrouchToFit = true
 
         @Tooltip(count = 2)
         override var disableCrawlToFit = true
+
         @Tooltip
         override var disableSwimming = true
+    }
+
+    class ItemCooldowns : NCTGConfig.ItemCooldowns {
+        @Tooltip
+        override var disableEnderpearlCooldown = true
     }
 
     class WorldLoadingBackgrounds : NCTGConfig.WorldLoadingBackgrounds {
