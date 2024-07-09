@@ -26,6 +26,10 @@ dependencies {
     modApi(libs.modmenu)
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/$modId.accesswidener")
+}
+
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(libs.versions.java.get())
     withSourcesJar()
