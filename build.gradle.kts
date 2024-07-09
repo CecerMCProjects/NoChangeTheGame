@@ -44,7 +44,7 @@ tasks {
         filesMatching("fabric.mod.json") {
             expand(
                 "mod_id" to modId,
-                "mod_package" to group,
+                "mod_package" to project.group,
                 "version" to version,
                 "fabric_loader_version" to libs.versions.fabric.loader.get(),
                 "minecraft_version" to libs.versions.minecraft.get(),
