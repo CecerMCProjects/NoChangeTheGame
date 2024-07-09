@@ -1,0 +1,30 @@
+[versions]
+java = "21"
+kotlin = "2.0.0"
+
+# See https://modmuss50.me/fabric.html for Minecraft versions
+minecraft = "1.21"
+fabric-loom = "1.6-SNAPSHOT"
+fabric-loader = "0.15.11"
+
+# Dependencies
+fabric-api = "0.100.1+1.21"
+fabric-kotlin = "1.11.0+kotlin.2.0.0"
+modmenu = "11.0.0"
+clothconfig = "15.0.127"
+
+[libraries]
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-loader" }
+
+# Dependencies
+fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric-api" }
+fabric-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabric-kotlin" }
+modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+clothconfig = { module = "me.shedaniel.cloth:cloth-config-fabric", version.ref = "clothconfig" }
+
+[bundles]
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+fabric-loom = { id = "fabric-loom", version.ref = "fabric-loom" }
