@@ -104,12 +104,13 @@ object SwordBlockingHelper {
     }
 
     private fun isBlockableSword(mainHand: ItemStack): Boolean {
-        if (mainHand.item !is SwordItem) {
-            return false
+        // Allow servers to specifically mark items as blockable or not
+        val itemOverride = mainHand.components.get(DataComponents.CUSTOM_DATA)?.tag?.getBoolean("nochangethegame:blockable")
+        if (itemOverride != null) {
+            return itemOverride
         }
-
-        // Allow servers to specifically mark items as unblockable
-        if (mainHand.components.get(DataComponents.CUSTOM_DATA)?.tag?.getBoolean("nochangethegame:unblockable") == true) {
+        
+        if (mainHand.item !is SwordItem) {
             return false
         }
         

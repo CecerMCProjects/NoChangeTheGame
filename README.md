@@ -82,8 +82,8 @@ The NoChangeTheGame modification provides a simple plugin message based protocol
 > | dangerZone.disableOnNonHypixelServers    | true          | N/A           |
 > | dangerZone.disableOnHypixelSMP           | true          | N/A           |
 >
-> The sword blocking animation can also be disabled on a per-itemstack basis by setting a `nochangethegame:unblockable` boolean tag to `true` on the custom data component of the item stack.
->   - Setting this tag to false currently has no effect.
+> The sword blocking animation can also be disabled on a per-itemstack basis by setting a `nochangethegame:blockable` boolean tag to `false` on the custom data component of the item stack.
+>   - Setting this tag to `true` force allows blocking, even with non-swords. However, this is not officially supported.
 
 ### `nochangethegame:kill_switch` (Clientbound)
 - Alternatively, all settings can be overridden to their vanilla values with this packet.
