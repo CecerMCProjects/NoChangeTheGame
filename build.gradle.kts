@@ -5,7 +5,7 @@ plugins {
 
 val modId = "nochangethegame"
 group = "com.cecer1.projects.mc.nochangethegame"
-version = "1.1.0-rc3"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
