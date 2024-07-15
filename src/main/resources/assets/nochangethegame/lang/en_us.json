@@ -37,7 +37,7 @@
   "text.autoconfig.nochangethegame.option.sneakHeight.eyeHeight.@Tooltip[6]": " ",
   "text.autoconfig.nochangethegame.option.sneakHeight.eyeHeight.@Tooltip[7]": "§e⚠ §c§l§nWARNING§e ⚠",
   "text.autoconfig.nochangethegame.option.sneakHeight.eyeHeight.@Tooltip[8]": "   §eChanging this value may be considered cheating on some servers.",
-  "text.autoconfig.nochangethegame.option.sneakHeight.eyeHeight.@Tooltip[9]": "   §cNoChangeTheGame is not responsible if you get banned a result.",
+  "text.autoconfig.nochangethegame.option.sneakHeight.eyeHeight.@Tooltip[9]": "   §bNoChangeTheGame§c is not responsible if you get banned a result.",
   "text.autoconfig.nochangethegame.option.sneakHeight.hitboxHeight": "Hitbox height when sneaking",
   "text.autoconfig.nochangethegame.option.sneakHeight.hitboxHeight.@Tooltip[0]": "Changes the height of the player hitbox when sneaking.",
   "text.autoconfig.nochangethegame.option.sneakHeight.hitboxHeight.@Tooltip[1]": " ",
@@ -48,7 +48,7 @@
   "text.autoconfig.nochangethegame.option.sneakHeight.hitboxHeight.@Tooltip[6]": " ",
   "text.autoconfig.nochangethegame.option.sneakHeight.hitboxHeight.@Tooltip[7]": "§e⚠ §c§l§nWARNING§e ⚠",
   "text.autoconfig.nochangethegame.option.sneakHeight.hitboxHeight.@Tooltip[8]": "   §eChanging this value may be considered cheating on some servers.",
-  "text.autoconfig.nochangethegame.option.sneakHeight.hitboxHeight.@Tooltip[9]": "   §cNoChangeTheGame is not responsible if you get banned a result.",
+  "text.autoconfig.nochangethegame.option.sneakHeight.hitboxHeight.@Tooltip[9]": "   §bNoChangeTheGame§c is not responsible if you get banned a result.",
   
   "text.autoconfig.nochangethegame.option.movementInterpolation": "Movement Interpolation",
   "text.autoconfig.nochangethegame.option.movementInterpolation.disableForSneaking": "Disable smooth sneaking animation",
