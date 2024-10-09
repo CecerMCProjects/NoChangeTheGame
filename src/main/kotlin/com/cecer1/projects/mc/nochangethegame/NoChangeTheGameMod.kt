@@ -1,15 +1,16 @@
 package com.cecer1.projects.mc.nochangethegame
 
 import com.cecer1.projects.mc.nochangethegame.config.NCTGConfig
+import com.cecer1.projects.mc.nochangethegame.config.NCTGConfigSerializer
 import com.cecer1.projects.mc.nochangethegame.config.NCTGServerOverrideConfig
 import com.cecer1.projects.mc.nochangethegame.config.NCTGUserConfig
 import com.cecer1.projects.mc.nochangethegame.config.NCTGVanillaConfig
 import com.cecer1.projects.mc.nochangethegame.protocol.ClientboundConfigOverridePacket
 import com.cecer1.projects.mc.nochangethegame.protocol.ClientboundKillSwitchPacket
 import com.cecer1.projects.mc.nochangethegame.protocol.ServerboundAnnouncePacket
+import com.cecer1.projects.mc.nochangethegame.utilities.PlayerPoseMutator
 import com.cecer1.projects.mc.nochangethegame.utilities.ServerBrand
 import me.shedaniel.autoconfig.AutoConfig
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationConnectionEvents
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents
@@ -20,7 +21,6 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.ChatFormatting
 import net.minecraft.client.Minecraft
-import net.minecraft.locale.Language
 import net.minecraft.nbt.ByteArrayTag
 import net.minecraft.nbt.ByteTag
 import net.minecraft.nbt.CompoundTag
@@ -33,11 +33,12 @@ import net.minecraft.nbt.LongTag
 import net.minecraft.nbt.ShortTag
 import net.minecraft.nbt.StringTag
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.MutableComponent
+import net.minecraft.world.entity.player.Player
+import kotlin.collections.set
 
 object NoChangeTheGameMod : ClientModInitializer {
     const val MOD_ID = "nochangethegame"
-    
+
     private lateinit var userConfig: NCTGUserConfig
     private lateinit var serverOverrideConfig: NCTGServerOverrideConfig
     private val vanillaConfig = NCTGVanillaConfig()
@@ -62,11 +63,11 @@ object NoChangeTheGameMod : ClientModInitializer {
         }
 
     override fun onInitializeClient() {
-        val configHolder = AutoConfig.register(NCTGUserConfig::class.java, ::Toml4jConfigSerializer)
+        val configHolder = AutoConfig.register(NCTGUserConfig::class.java, ::NCTGConfigSerializer)
         userConfig = configHolder.config
         serverOverrideConfig = NCTGServerOverrideConfig(userConfig)
         configHolder.save()
-        
+
         ClientLoginConnectionEvents.DISCONNECT.register { _, _ -> resetServerState() }
         ClientConfigurationConnectionEvents.DISCONNECT.register { _, _ -> resetServerState() }
         ClientPlayConnectionEvents.DISCONNECT.register { _, _ -> resetServerState() }
@@ -84,76 +85,102 @@ object NoChangeTheGameMod : ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(ClientboundConfigOverridePacket.TYPE) { packet, _ ->
             val nbt: CompoundTag = packet.stuff ?: return@registerGlobalReceiver // Ignore invalid payloads
 
-            var changed = false
-            val newValues = mutableMapOf<String, Any>()
-            for (key in nbt.allKeys) {
-                val value = when (val override = nbt.get(key)) {
-                    is ByteTag -> override.asByte
-                    is ShortTag -> override.asShort
-                    is IntTag -> override.asInt
-                    is LongTag -> override.asLong
-                    is FloatTag -> override.asFloat
-                    is DoubleTag -> override.asDouble
-                    is ByteArrayTag -> override.asByteArray
-                    is StringTag -> override.asString
-                    is IntArrayTag -> override.asIntArray
-                    is LongArrayTag -> override.asLongArray
-                    else -> continue // Ignore unsupported tag types
-                }
-                newValues[key] = value
-                if (serverOverrideConfig.overrides[key] != value) {
-                    changed = true
-                }
+            val hasChanged = applyServerConfigOverride(nbt)
+            if (hasChanged) {
+                printServerConfigOverrideStatus()
             }
-            
-            if (!changed && serverOverrideConfig.overrides.size == newValues.size) {
-                // Nothing has changed
-                return@registerGlobalReceiver
-            }
-
-            // Server override has been cleared by the server
-            serverOverrideConfig.clearAllOverrides()
-            val message = Component.empty()
-                .append(Component.translatable("text.serveroverride.chat.title"))
-                .append("\n")
-            
-            if (newValues.isEmpty()) {
-                message.append(Component.translatable("text.serveroverride.chat.cleared"))
-            } else {
-                message.append(Component.translatable("text.serveroverride.chat.applied"))
-                for (entry in newValues) {
-                    message.append("\n  ")
-                        .append(Component.translatable("text.serveroverride.option.${entry.key}").withStyle(ChatFormatting.GRAY))
-                        .append(Component.literal(": ").withStyle(ChatFormatting.WHITE))
-                        .append(Component.literal(entry.value.toString()).withStyle(ChatFormatting.YELLOW))
-                    serverOverrideConfig[entry.key] = entry.value
-                }
-            }
-            Minecraft.getInstance().gui.chat.addMessage(message)
         }
 
         ClientPlayNetworking.registerGlobalReceiver(ClientboundKillSwitchPacket.TYPE) { packet, _ ->
             if (killSwitchActive == packet.active) {
+                // Kill switch status unchanged
                 return@registerGlobalReceiver
             }
             killSwitchActive = packet.active
-            
-            val message = Component.empty()
-                .append(Component.translatable("text.serveroverride.chat.title"))
-                .append("\n")
-
-            if (packet.active) {
-                message.append(Component.translatable("text.serveroverride.chat.killswitch.activated"))
-            } else {
-                message.append(Component.translatable("text.serveroverride.chat.killswitch.deactivated"))
-            }
-            Minecraft.getInstance().gui.chat.addMessage(message)
+            applyConfigChanges()
+            printKillSwitchStatus()
         }
+    }
+
+    private fun applyServerConfigOverride(nbt: CompoundTag): Boolean {
+        var changed = serverOverrideConfig.overrides.size != nbt.size()
+
+        serverOverrideConfig.clearAllOverrides()
+        for (key in nbt.allKeys) {
+            val value = when (val override = nbt.get(key)) {
+                is ByteTag -> override.asByte
+                is ShortTag -> override.asShort
+                is IntTag -> override.asInt
+                is LongTag -> override.asLong
+                is FloatTag -> override.asFloat
+                is DoubleTag -> override.asDouble
+                is ByteArrayTag -> override.asByteArray
+                is StringTag -> override.asString
+                is IntArrayTag -> override.asIntArray
+                is LongArrayTag -> override.asLongArray
+                else -> continue // Ignore unsupported tag types
+            }
+            if (serverOverrideConfig.overrides[key] != value) {
+                serverOverrideConfig.overrides[key] = value
+                changed = true
+            }
+        }
+
+        if (changed) {
+            applyConfigChanges()
+        }
+        return changed
+    }
+
+    private fun printServerConfigOverrideStatus() {
+        val message = Component.empty()
+            .append(Component.translatable("text.serveroverride.chat.title"))
+            .append("\n")
+
+        if (serverOverrideConfig.overrides.isEmpty()) {
+            message.append(Component.translatable("text.serveroverride.chat.cleared"))
+        } else {
+            message.append(Component.translatable("text.serveroverride.chat.applied"))
+            for (entry in serverOverrideConfig.overrides.entries) {
+                message.append("\n  ")
+                    .append(Component.translatable("text.serveroverride.option.${entry.key}").withStyle(ChatFormatting.GRAY))
+                    .append(Component.literal(": ").withStyle(ChatFormatting.WHITE))
+                    .append(Component.literal(entry.value.toString()).withStyle(ChatFormatting.YELLOW))
+            }
+        }
+
+        Minecraft.getInstance().gui.chat.addMessage(message)
+    }
+
+    private fun printKillSwitchStatus() {
+        val message = Component.empty()
+            .append(Component.translatable("text.serveroverride.chat.title"))
+            .append("\n")
+
+        if (killSwitchActive) {
+            message.append(Component.translatable("text.serveroverride.chat.killswitch.activated"))
+        } else {
+            message.append(Component.translatable("text.serveroverride.chat.killswitch.deactivated"))
+        }
+        Minecraft.getInstance().gui.chat.addMessage(message)
+    }
+
+    /**
+     * Applies config changes to the game.
+     * To be called every time the config has changed.
+     */
+    fun applyConfigChanges() {
+        if (!::userConfig.isInitialized) {
+            // Don't bother applying config changes during start up. Not a great way to do this but it is simple and it works
+            return
+        }
+        PlayerPoseMutator.applyConfig(config)
     }
 
     private fun resetServerState() {
         killSwitchActive = false
         serverBrand.setBrand(null)
         serverOverrideConfig.clearAllOverrides()
+        applyConfigChanges()
     }
 }
